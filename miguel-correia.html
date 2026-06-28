@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Miguel Correia — systems engineer and co-founder of Vouga Agency.">
+  <meta name="theme-color" content="#f3f0ea">
+  <title>Miguel Correia — Founder & System Thinker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,300..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --paper:#f9fcfb;
+      --paper-deep:#f3f0ea;
+      --ink:#10100f;
+      --muted:#6e6a63;
+      --line:rgba(16,16,15,.18);
+      --acid:#d97850;
+      --orange:#d97850;
+      --violet:#6f5cff;
+      --sans:"Archivo",Arial,sans-serif;
+      --mono:"DM Mono",monospace;
+      --ease:cubic-bezier(.16,1,.3,1);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:110px}
+    body{background:#f9fcfb;color:var(--ink);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    ::selection{background:var(--acid);color:var(--ink)}
+    img{display:block;max-width:100%}
+
+    .grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.055;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")}
+    .progress{position:fixed;z-index:40;left:0;top:0;width:100%;height:3px;transform:scaleX(var(--progress,0));transform-origin:left;background:var(--acid);pointer-events:none}
+    .page{width:100%;margin-inline:auto}
+    .page>main,.page>footer{width:min(1440px,100%);margin-inline:auto;border-left:1px solid rgba(16,16,15,.08);border-right:1px solid rgba(16,16,15,.08)}
+    .shell{width:min(1320px,calc(100% - 64px));margin-inline:auto}
+    .micro{font:400 11px/1.5 var(--mono);letter-spacing:.07em;text-transform:uppercase}
+    .muted{color:var(--muted)}
+
+    .nav{position:fixed;z-index:30;top:22px;left:50%;transform:translateX(-50%);width:min(470px,calc(100% - 30px));height:62px;padding:8px;border-radius:22px;background:var(--ink);color:var(--paper);transition:width .55s var(--ease),height .55s var(--ease),border-radius .55s var(--ease);box-shadow:0 16px 40px rgba(16,16,15,.12)}
+    .nav.compact{width:min(400px,calc(100% - 30px));height:54px;border-radius:18px}
+    .nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between;padding-left:12px}
+    .nav-brand{font-size:19px;font-weight:600;text-decoration:none;letter-spacing:-.04em}
+    .nav-menu{display:flex;align-items:center;gap:4px}
+    .nav-menu a{font:400 10px var(--mono);text-decoration:none;padding:11px 12px;border-radius:12px;color:rgba(243,240,234,.72);transition:.25s}
+    .nav-menu a:hover{color:var(--paper);background:rgba(255,255,255,.1)}
+    .nav-toggle{display:none;border:0;background:var(--paper);color:var(--ink);border-radius:11px;padding:10px 13px;font:500 12px var(--mono)}
+
+    .hero{min-height:100svh;position:relative;display:flex;align-items:center;padding:132px 0 50px;overflow:hidden}
+    .hero-stage{position:relative;width:100%}
+    .hero-title{position:relative;z-index:3;font-size:clamp(86px,14.1vw,204px);font-weight:820;font-stretch:100%;line-height:.76;letter-spacing:-.085em;text-transform:uppercase;pointer-events:none;transform:translate3d(0,calc(var(--hero-shift,0) * -1px),0)}
+    .hero-title span{display:block}
+    .hero-title .line-2{text-align:right}
+    .hero-title .outline{color:transparent;-webkit-text-stroke:2px var(--ink)}
+
+    .portrait-stack{position:absolute;z-index:4;left:50%;top:47%;width:clamp(220px,22vw,330px);height:clamp(300px,34vw,480px);transform:translate(-50%,-42%) translate3d(0,calc(var(--hero-shift,0) * .42px),0);perspective:1000px}
+    .portrait-back,.portrait-front{position:absolute;inset:0;overflow:hidden;border-radius:5px;background:#222;transition:transform .8s var(--ease),clip-path .8s var(--ease);box-shadow:0 28px 70px rgba(16,16,15,.16)}
+    .portrait-back{transform:translate(-46px,-24px) rotate(-5deg);clip-path:polygon(0 0,100% 0,100% 82%,0 100%);filter:grayscale(1) contrast(1.15)}
+    .portrait-front{transform:translate(34px,28px) rotate(3deg);clip-path:polygon(0 14%,100% 0,100% 100%,0 86%)}
+    .portrait-stack:hover .portrait-back{transform:translate(-68px,-35px) rotate(-8deg)}
+    .portrait-stack:hover .portrait-front{transform:translate(52px,38px) rotate(5deg)}
+    .portrait-stack img{width:100%;height:100%;object-fit:cover;object-position:67% center;transform:scale(1.8);filter:saturate(.75) contrast(1.08)}
+    .portrait-back img{filter:grayscale(1) contrast(1.2)}
+
+    .spark{position:absolute;z-index:5;width:54px;height:54px;background:var(--ink);clip-path:polygon(50% 0,63% 36%,100% 50%,63% 64%,50% 100%,37% 64%,0 50%,37% 36%);filter:drop-shadow(3px 4px 0 var(--violet));animation:spin-float 7s ease-in-out infinite}
+    .spark.s1{left:3%;top:54%}.spark.s2{right:2%;bottom:12%;width:66px;height:66px;animation-delay:-3s;filter:drop-shadow(-4px 4px 0 var(--orange))}
+    @keyframes spin-float{50%{transform:translateY(-18px) rotate(38deg)}}
+
+    .hero-meta{position:relative;z-index:6;display:flex;align-items:end;justify-content:space-between;margin-top:48px;gap:20px}
+    .hero-meta strong{display:block;font-size:clamp(38px,5.3vw,78px);font-weight:650;letter-spacing:-.065em;line-height:.9}
+    .hero-meta .right{text-align:right}
+    .hero-meta .right span{display:block;margin-top:9px}
+
+    .ticker{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden;background:var(--acid);transform:rotate(-1deg) scale(1.02);margin:10px 0 0}
+    .ticker-track{display:flex;width:max-content;animation:ticker 22s linear infinite;padding:14px 0}
+    .ticker-track span{font-size:18px;font-weight:700;text-transform:uppercase;white-space:nowrap;letter-spacing:-.025em}
+    .ticker-track span::after{content:"✦";padding:0 26px}
+    @keyframes ticker{to{transform:translateX(-50%)}}
+
+    .intro{padding:170px 0 120px}
+    .intro-grid{display:grid;grid-template-columns:.65fr 1.35fr;gap:clamp(45px,10vw,150px);align-items:start}
+    .intro h2{font-size:clamp(76px,10vw,145px);line-height:.8;font-weight:780;letter-spacing:-.075em}
+    .intro-copy{padding-top:10px;max-width:760px}
+    .intro-copy p{font-size:clamp(22px,2.2vw,33px);line-height:1.28;letter-spacing:-.035em;margin-bottom:24px}
+    .intro-copy p:last-of-type{font-size:17px;line-height:1.65;letter-spacing:-.01em;color:var(--muted);max-width:650px}
+    .pill-link{display:inline-flex;align-items:center;gap:12px;margin-top:12px;padding:15px 18px;border-radius:999px;background:var(--ink);color:var(--paper);font:400 11px var(--mono);text-decoration:none;transition:transform .35s var(--ease)}
+    .pill-link:hover{transform:translateY(-4px) rotate(-1deg)}
+
+    .manifesto{min-height:115svh;display:grid;place-items:center;padding:150px 0;position:relative}
+    .manifesto-text{max-width:1100px;text-align:center;font-size:clamp(38px,5.5vw,80px);line-height:1.08;font-weight:570;letter-spacing:-.055em}
+    .manifesto-text .word{color:rgba(16,16,15,.13);transition:color .18s linear,transform .18s linear;display:inline-block;transform:translateY(4px)}
+    .manifesto-text .word.lit{color:var(--ink);transform:none}
+    .manifesto-index{position:absolute;left:32px;top:50%;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg)}
+
+    .section-top{display:flex;justify-content:space-between;align-items:end;gap:30px;padding-bottom:34px;border-bottom:1px solid var(--ink)}
+    .section-top h2{font-size:clamp(62px,8.6vw,125px);font-weight:760;line-height:.78;letter-spacing:-.075em;text-transform:uppercase}
+    .section-top p{max-width:350px;text-align:right;color:var(--muted);font-size:14px;line-height:1.55}
+
+    .journey{padding:100px 0 160px}
+    .chapters{margin-top:70px}
+    .chapter{display:grid;grid-template-columns:150px 1fr;gap:42px;padding:60px 0 100px;border-top:1px solid var(--line)}
+    .chapter-index{position:sticky;top:110px;height:max-content}
+    .chapter-index b{display:block;font-size:48px;font-weight:650;letter-spacing:-.06em;margin-top:8px}
+    .chapter-index b.range{font-size:30px;letter-spacing:-.045em}
+    .chapter-content{display:grid;grid-template-columns:minmax(280px,.72fr) minmax(420px,1.28fr);gap:clamp(40px,7vw,100px)}
+    .chapter-copy h3{font-size:clamp(43px,5vw,72px);line-height:.95;font-weight:650;letter-spacing:-.06em;margin:12px 0 25px}
+    .chapter-copy p{font-size:16px;line-height:1.68;color:var(--muted);max-width:560px}
+    .chapter-copy strong{color:var(--ink);font-weight:600}
+    .chapter-brand-logo{display:block;width:auto;max-width:190px;max-height:48px;object-fit:contain;object-position:left center;margin-bottom:18px}
+    .chapter-brand-logo.kindtech-chapter-logo{transform:translateX(-.2cm)}
+    .chapter-brand-logo.vouga-chapter-logo{width:170px;max-width:170px;max-height:none}
+    .tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:27px}
+    .tags span{padding:8px 11px;border:1px solid var(--line);border-radius:999px;font:400 10px var(--mono);text-transform:uppercase}
+
+    .evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .evidence{position:relative;min-height:225px;padding:22px;border:1px solid var(--ink);background:var(--paper-deep);overflow:hidden;transition:transform .5s var(--ease),background .3s;color:var(--ink)}
+    .evidence.wide{grid-column:1/-1;min-height:300px}
+    .evidence:hover{transform:translateY(-7px) rotate(.4deg);background:var(--acid)}
+    .evidence::before,.evidence::after{content:"";position:absolute;background:var(--ink);opacity:.16}
+    .evidence::before{width:140%;height:1px;left:-20%;top:50%;transform:rotate(18deg)}
+    .evidence::after{height:140%;width:1px;top:-20%;left:50%;transform:rotate(18deg)}
+    .evidence.has-image::before{z-index:1;inset:0;width:auto;height:auto;background:linear-gradient(180deg,rgba(0,0,0,.02) 30%,rgba(0,0,0,.72) 100%);opacity:1;transform:none}
+    .evidence.has-image::after{display:none}
+    .evidence.has-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.35) saturate(.72) contrast(1.05);transition:transform .8s var(--ease),filter .8s var(--ease)}
+    .evidence.has-image:hover img{transform:scale(1.045);filter:grayscale(0) saturate(.9) contrast(1.02)}
+    .evidence.has-image .evidence-no,.evidence.has-image .evidence-label{z-index:2;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.28)}
+    @media(min-width:651px){.evidence.has-image img.fnr-photo{object-position:50% 38%}}
+    .evidence-grid.compact-four .evidence{min-height:180px}
+    .evidence.pending-photo{background:linear-gradient(145deg,var(--paper-deep),#f9fcfb)}
+    .evidence.pending-photo::before{opacity:.08}
+    .evidence.pending-photo::after{opacity:.08}
+    .evidence.pending-photo .evidence-label span::before{content:"○ ";color:var(--orange)}
+    .evidence.construction{min-height:320px;background:#f1f1ed;border-style:dashed}
+    .evidence.construction img{object-fit:contain;padding:clamp(45px,8vw,105px);opacity:.68;filter:grayscale(1) contrast(.92);animation:construction-logo 5s var(--ease) infinite}
+    .evidence.construction::before{z-index:1;inset:0;width:auto;height:auto;background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(16,16,15,.055) 22px 23px);opacity:1;transform:none;animation:construction-grid 7s linear infinite}
+    .evidence.construction::after{display:block;z-index:1;inset:16px;width:auto;height:auto;border:1px dashed rgba(16,16,15,.28);background:transparent;opacity:1;transform:none}
+    .evidence.construction .evidence-no,.evidence.construction .evidence-label{z-index:2;color:var(--ink);text-shadow:none}
+    .construction-status{position:absolute;z-index:2;left:20px;top:18px;padding:8px 10px;border:1px solid var(--ink);background:var(--paper);font:400 9px var(--mono);text-transform:uppercase;letter-spacing:.08em}
+    @keyframes construction-logo{50%{opacity:.9;transform:scale(1.018)}}
+    @keyframes construction-grid{to{background-position:65px 0}}
+    .evidence-no{position:absolute;right:18px;top:15px;font:400 10px var(--mono)}
+    .evidence-label{position:absolute;left:20px;right:20px;bottom:18px;z-index:2}
+    .evidence-label b{display:block;font-size:18px;font-weight:600;letter-spacing:-.03em;margin-bottom:5px}
+    .evidence-label span{font:400 10px var(--mono);text-transform:uppercase}
+
+    .vouga{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);padding:150px 0 130px}
+    .vouga::before{content:"";position:absolute;right:-12vw;top:-18vw;width:55vw;height:55vw;border:1px solid rgba(243,240,234,.16);border-radius:50%;box-shadow:0 0 0 7vw rgba(243,240,234,.025),0 0 0 14vw rgba(243,240,234,.018);animation:orbit-ring 14s linear infinite}
+    @keyframes orbit-ring{to{transform:rotate(360deg)}}
+    .vouga-head{display:flex;justify-content:space-between;align-items:start;position:relative;z-index:2}
+    .vouga-logo{width:84px;filter:invert(1)}
+    .vouga h2{position:relative;z-index:2;font-size:clamp(86px,14vw,202px);font-weight:800;line-height:.76;letter-spacing:-.085em;text-transform:uppercase;margin:100px 0 55px}
+    .vouga h2 span{display:block}.vouga h2 span:last-child{text-align:right;color:var(--acid)}
+    .vouga-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:end}
+    .vouga-lead{font-size:clamp(25px,3vw,44px);line-height:1.18;letter-spacing:-.045em;max-width:780px}
+    .vouga-side{border-left:1px solid rgba(243,240,234,.25);padding-left:28px}
+    .vouga-side p{color:rgba(243,240,234,.65);font-size:14px;line-height:1.65;margin-bottom:25px}
+    .vouga .pill-link{background:var(--acid);color:var(--ink)}
+
+    .principles{padding:150px 0}
+    .principle-list{margin-top:70px;border-top:1px solid var(--ink)}
+    .principle{display:grid;grid-template-columns:120px 1fr 1fr;gap:40px;align-items:center;padding:42px 0;border-bottom:1px solid var(--ink);transition:padding .4s var(--ease),background .3s}
+    .principle:hover{padding-left:22px;padding-right:22px;background:var(--acid)}
+    .principle h3{font-size:clamp(30px,4vw,58px);font-weight:660;letter-spacing:-.055em}
+    .principle p{font-size:15px;line-height:1.6;color:var(--muted);max-width:480px}
+    .principle:hover p{color:var(--ink)}
+
+    .contact{min-height:100svh;display:grid;align-items:center;padding:140px 0 65px;overflow:hidden}
+    .contact h2{font-size:clamp(86px,14vw,202px);font-weight:800;line-height:.76;letter-spacing:-.09em;text-transform:uppercase}
+    .contact h2 span{display:block}.contact h2 span:nth-child(2){text-align:right;color:transparent;-webkit-text-stroke:2px var(--ink)}
+    .contact-bottom{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-top:70px;padding-top:28px;border-top:1px solid var(--ink)}
+    .contact-bottom p{max-width:430px;color:var(--muted);line-height:1.6}
+    .contact-mail{font-size:clamp(19px,2.2vw,32px);font-weight:600;letter-spacing:-.04em;text-underline-offset:7px}
+
+    footer{display:flex;justify-content:space-between;gap:30px;padding:28px 0 36px;border-top:1px solid var(--line);font:400 10px var(--mono);text-transform:uppercase}
+
+    /* proportion pass + editorial navigation */
+    .nav{top:0;width:min(1200px,calc(100% - 32px));height:72px;padding:0 26px;border:1px solid rgba(16,16,15,.11);border-top:0;border-radius:0;background:rgba(243,240,234,.9);color:var(--ink);box-shadow:none;backdrop-filter:blur(18px)}
+    .nav.compact{width:min(1200px,calc(100% - 32px));height:62px;border-radius:0}
+    .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;padding:0;height:100%}
+    .nav-side{display:flex;align-items:center;gap:30px}
+    .nav-side.right{justify-content:flex-end}
+    .nav-side a{font:400 12px var(--mono);text-decoration:none;color:var(--muted);transition:color .25s}
+    .nav-side a:hover{color:var(--ink)}
+    .nav-brand{align-self:center;padding:0 30px;font-size:17px;font-weight:700;text-align:center}
+
+    /* minimal editorial hero */
+    .nav.hero-nav{position:absolute;top:0;width:100%;height:70px;padding:0 7vw;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;color:var(--ink)}
+    .nav.hero-nav.compact{width:100%;height:70px}
+    .hero-nav .nav-inner{display:flex;justify-content:space-between;gap:30px}
+    .local-time{display:flex;align-items:center;gap:9px;font-size:13px;white-space:nowrap}
+    .local-time span{color:var(--muted)}
+    .local-time strong{font-weight:600;font-variant-numeric:tabular-nums}
+    .hero-nav-right{display:flex;align-items:center;gap:38px}
+    .hero-nav-links{display:flex;gap:22px}
+    .hero-nav-links a,.hero-email{font-size:13px;font-weight:570;text-decoration:none;white-space:nowrap}
+    .hero-nav-links a::before{content:"[";color:var(--muted);margin-right:2px;display:inline-block;transition:.25s var(--ease)}
+    .hero-nav-links a::after{content:"]";color:var(--muted);margin-left:2px;display:inline-block;transition:.25s var(--ease)}
+    .hero-nav-links a:hover{color:var(--orange)}
+    .hero-nav-links a:hover::before{transform:translateX(-2px)}.hero-nav-links a:hover::after{transform:translateX(2px)}
+    .hero-email{text-decoration:underline;text-decoration-color:transparent;text-underline-offset:5px;transition:.25s}
+    .hero-email:hover{text-decoration-color:var(--orange)}
+    .mobile-brand,.mobile-menu-toggle,.mobile-menu{display:none}
+
+    .minimal-hero{position:relative;min-height:100svh;padding:98px 7vw 48px;display:grid;grid-template-columns:minmax(190px,245px) 1fr minmax(190px,245px);grid-template-rows:auto 1fr auto;column-gap:clamp(32px,6vw,110px);overflow:hidden}
+    .hero-profile{grid-column:1;grid-row:1;align-self:start}
+    .hero-profile-photo{width:100%;aspect-ratio:1;overflow:hidden;background:var(--paper-deep)}
+    .hero-profile-photo img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.82) contrast(1.04)}
+    .hero-profile-role{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:13px;font-weight:580;line-height:1.25}
+    .hero-profile-role span:last-child{text-align:right;color:var(--muted)}
+    .profile-card{position:relative;width:100%;aspect-ratio:1;perspective:1100px}
+    .profile-card-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s var(--ease)}
+    .profile-card.is-flipped .profile-card-inner{transform:rotateY(180deg)}
+    .profile-card .hero-profile-photo,.profile-card-back{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    .profile-card .hero-profile-photo{aspect-ratio:auto}
+    .profile-card-back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:space-between;padding:20px;background:var(--ink);color:var(--paper)}
+    .profile-card-back small{font:400 9px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:rgba(249,252,251,.5)}
+    .profile-card-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+    .profile-card-links a{font-size:clamp(15px,1.4vw,20px);font-weight:560;text-decoration:none;border-bottom:1px solid rgba(249,252,251,.25)}
+    .profile-flip-toggle{position:absolute;z-index:3;inset:0;width:100%;height:100%;border:0;background:transparent;cursor:pointer}
+    .profile-flip-toggle::after{content:"↻";position:absolute;right:10px;top:10px;width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(16,16,15,.2);border-radius:50%;background:rgba(249,252,251,.82);color:var(--ink);font-size:14px;backdrop-filter:blur(8px);transition:transform .35s var(--ease)}
+    .profile-flip-toggle:hover::after{transform:rotate(90deg)}
+    .profile-flip-toggle:focus-visible,.profile-back-close:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+    .profile-card.is-flipped .profile-flip-toggle{pointer-events:none}
+    .profile-back-close{align-self:flex-end;width:30px;height:30px;border:1px solid rgba(249,252,251,.35);border-radius:50%;background:transparent;color:var(--paper);font-size:16px;cursor:pointer}
+
+    .hero-video{grid-column:2;grid-row:1/4;place-self:center;width:100%;max-width:245px;aspect-ratio:1;overflow:hidden;background:var(--paper);isolation:isolate}
+    .hero-video video{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.85) brightness(1.22);mix-blend-mode:multiply}
+
+    .hero-thoughts{grid-column:3;grid-row:1;align-self:start}
+    .hero-thought-frame{position:relative;width:100%;aspect-ratio:1;overflow:hidden;background:var(--ink);color:var(--paper)}
+    .hero-thought{position:absolute;inset:0;padding:19px;display:flex;flex-direction:column;justify-content:space-between;color:inherit;text-decoration:none;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(12px);animation:thought-cycle 18s infinite}
+    .hero-thought:nth-child(2){animation-delay:6s}.hero-thought:nth-child(3){animation-delay:12s}
+    .hero-thought .count{font:400 10px var(--mono);color:rgba(243,240,234,.55)}
+    .hero-thought h3{font-size:clamp(18px,1.65vw,25px);line-height:1.04;letter-spacing:-.04em;font-weight:580}
+    .hero-thought p{font-size:11px;line-height:1.45;color:rgba(243,240,234,.58)}
+    @keyframes thought-cycle{0%{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(12px)}6%,28%{opacity:1;visibility:visible;pointer-events:auto;transform:none}34%,100%{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-10px)}}
+    .hero-thought-meta{display:flex;justify-content:space-between;margin-top:10px;font-size:13px;font-weight:580}
+    .hero-thought-meta span:last-child{color:var(--muted)}
+
+    .hero-description{grid-column:1;grid-row:3;align-self:end;max-width:330px;font-size:clamp(18px,1.7vw,25px);line-height:1.06;letter-spacing:-.035em;font-weight:570}
+    .hero-signature{grid-column:3;grid-row:3;align-self:end;justify-self:end;width:max-content;text-align:right;font-size:clamp(30px,4vw,58px);line-height:.9;letter-spacing:-.065em;font-weight:680;white-space:nowrap}
+    .hero-signature span{font-weight:430}
+
+    .hero{min-height:90svh;padding:112px 0 42px}
+    .hero-title{font-size:clamp(74px,9.8vw,142px);line-height:.79;padding-inline:12px}
+    .hero-title .line-2 .outline{display:inline}
+    .portrait-stack{width:clamp(205px,19vw,285px);height:clamp(285px,30vw,420px)}
+    .intro{padding:120px 0 90px}
+    .intro h2{font-size:clamp(68px,8vw,112px)}
+    .manifesto{min-height:82svh;padding:105px 0}
+    .manifesto-text{font-size:clamp(28px,3.25vw,46px);max-width:900px;margin-inline:auto;text-align:center}
+    .section-top h2{font-size:clamp(56px,6.6vw,94px)}
+    .journey{padding:90px 0 115px}
+    .chapter{padding:48px 0 74px}
+    .chapter-copy h3{font-size:clamp(39px,4.2vw,61px)}
+    .evidence.wide{min-height:260px}
+    .vouga{padding:110px 0 100px}
+    .vouga h2{font-size:clamp(72px,11vw,158px);margin:72px 0 45px}
+    .principles{padding:110px 0}
+    .contact{min-height:68svh;padding:105px 0 55px}
+    .contact h2{font-size:clamp(72px,10.5vw,150px)}
+
+    .bottom-blur{position:fixed;z-index:24;left:0;right:0;bottom:-1px;height:68px;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(249,252,251,.58));backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);mask-image:linear-gradient(to bottom,transparent 0%,black 72%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 72%)}
+
+    .content-section{padding:105px 0}
+    .content-title{font-size:clamp(58px,7vw,98px);font-weight:720;letter-spacing:-.065em;line-height:.9;margin-bottom:48px}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .testimonial-card{min-height:300px;border-radius:18px;background:var(--ink);color:var(--paper);padding:23px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .45s var(--ease)}
+    .testimonial-card:hover{transform:translateY(-7px)}
+    .testimonial-card blockquote{font-size:14px;line-height:1.48;letter-spacing:-.015em;color:rgba(243,240,234,.9)}
+    .testimonial-card.placeholder blockquote{color:rgba(243,240,234,.46)}
+    .person{display:flex;align-items:center;gap:11px}
+    .person-avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--paper);color:var(--ink);font:500 11px var(--mono)}
+    .person b{display:block;font-size:13px}.person span{font-size:11px;color:rgba(243,240,234,.58)}
+
+    .thoughts-grid{display:grid;grid-template-columns:1fr 1fr .92fr;gap:14px}
+    .thought-card{position:relative;min-height:390px;border-radius:18px;overflow:hidden;background:var(--ink);color:white;text-decoration:none;isolation:isolate}
+    .thought-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12);transition:transform .8s var(--ease),filter .8s var(--ease)}
+    .thought-card:hover img{transform:scale(1.055);filter:grayscale(.25) contrast(1.06)}
+    .thought-card::after{content:"";position:absolute;inset:0;z-index:-0;background:linear-gradient(180deg,transparent 24%,rgba(0,0,0,.88) 100%)}
+    .thought-content{position:absolute;z-index:2;left:20px;right:20px;bottom:20px}
+    .thought-content .micro{display:block;margin-bottom:10px;color:rgba(255,255,255,.7)}
+    .thought-content h3{font-size:26px;line-height:1.02;letter-spacing:-.045em;margin-bottom:12px}
+    .thought-content p{font-size:12px;line-height:1.5;color:rgba(255,255,255,.72)}
+    .thought-cta{padding:26px;display:flex;flex-direction:column;justify-content:space-between;background:var(--ink)}
+    .thought-cta::after{display:none}
+    .thought-cta p{font-size:clamp(31px,3.3vw,48px);line-height:1.08;letter-spacing:-.055em}
+    .thought-cta span{font:400 11px var(--mono)}
+
+    .thoughts-list{border-top:1px solid var(--ink)}
+    .thought-row{width:100%;display:grid;grid-template-columns:56px 1fr auto;gap:24px;align-items:center;padding:28px 0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;text-decoration:none;cursor:pointer;font:inherit;transition:padding .35s var(--ease),color .25s}
+    .thought-row:hover{padding-left:12px;color:var(--orange)}
+    .thought-row-index{font:400 10px var(--mono);color:var(--muted)}
+    .thought-row-title{font-size:clamp(25px,3.4vw,48px);font-weight:560;line-height:1.05;letter-spacing:-.05em}
+    .thought-row-arrow{font-size:22px;transition:transform .35s var(--ease)}
+    .thought-row:hover .thought-row-arrow{transform:translate(4px,-4px)}
+
+    .contact.contact-soft{min-height:auto;padding:135px 0}
+    .contact-soft-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end;margin-top:58px;padding-top:32px;border-top:1px solid var(--line)}
+    .contact.contact-soft h2{font-size:clamp(48px,7vw,92px);font-weight:520;line-height:.92;letter-spacing:-.065em;text-transform:none}
+    .contact-soft-copy p{max-width:420px;margin-top:24px;color:var(--muted);font-size:15px;line-height:1.65}
+    .contact-links{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+    .contact-links a{font-size:clamp(18px,2.2vw,30px);font-weight:480;letter-spacing:-.035em;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:5px;transition:color .25s,border-color .25s}
+    .contact-links a:hover{color:var(--orange);border-color:var(--orange)}
+
+    .big-footer{position:relative;min-height:650px;padding:95px 0 38px;border-top:1px solid var(--line);overflow:hidden;text-transform:none}
+    .footer-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.1fr .85fr;gap:55px;min-height:500px;align-items:start}
+    .footer-brand{padding-top:90px}.footer-brand b{font-size:19px}.footer-brand p{margin-top:14px;max-width:270px;font:300 14px/1.65 var(--sans);color:var(--muted)}
+    .footer-socials{display:flex;gap:9px;margin-top:260px}.footer-socials a{font:400 11px var(--mono);text-decoration:none;color:var(--muted)}
+    .footer-figure{align-self:end;height:520px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .footer-figure video{width:min(360px,100%);aspect-ratio:1;object-fit:cover;display:block;filter:grayscale(1) contrast(1.85) brightness(1.22);mix-blend-mode:multiply;opacity:.72}
+    .footer-links{display:grid;grid-template-columns:1fr;gap:45px;padding-top:90px}
+    .footer-links h4{font-size:13px;margin-bottom:18px}
+    .footer-links a{display:block;width:max-content;margin:0 0 14px;text-decoration:none;font:300 13px var(--sans);color:var(--muted)}
+    .footer-copy{position:absolute;z-index:3;bottom:30px;left:0;right:0;display:flex;justify-content:space-between;font:400 10px var(--mono);text-transform:uppercase}
+
+    .reveal{opacity:0;transform:translateY(55px);filter:blur(8px);transition:opacity 1s var(--ease),transform 1s var(--ease),filter 1s var(--ease)}
+    .reveal.in{opacity:1;transform:none;filter:none}
+
+    @media(max-width:900px){
+      .hero-title{font-size:clamp(76px,16vw,145px)}
+      .portrait-stack{width:230px;height:330px}
+      .intro-grid,.vouga-grid{grid-template-columns:1fr}.intro-copy{margin-left:auto;width:min(100%,670px)}
+      .chapter-content{grid-template-columns:1fr}.chapter{grid-template-columns:100px 1fr}.evidence-grid{max-width:720px}
+      .principle{grid-template-columns:70px 1fr}.principle p{grid-column:2}
+      .testimonials-grid{grid-template-columns:repeat(2,1fr)}
+      .thoughts-grid{grid-template-columns:1fr 1fr}.thought-cta{grid-column:1/-1;min-height:260px}
+      .footer-grid{grid-template-columns:1fr 1fr}.footer-figure{display:none}.footer-socials{margin-top:170px}
+      .nav.hero-nav{padding-inline:32px}.hero-email{display:none}.hero-nav-right{gap:20px}
+      .minimal-hero{padding-inline:32px;grid-template-columns:190px 1fr 190px;column-gap:35px}.hero-video{width:190px}
+    }
+
+    @media(max-width:650px){
+      .shell{width:calc(100% - 40px)}.page>main,.page>footer{width:calc(100% - 16px);margin-inline:auto;border:0}
+      .nav{top:0;width:calc(100% - 20px);height:58px;padding:0 14px}.nav.compact{width:calc(100% - 20px);height:54px}.nav-side{display:none}.nav-inner{display:flex;justify-content:center}.nav-brand{padding:0}
+      .hero{min-height:90svh;padding:100px 0 24px;align-items:start}.hero-stage{padding-top:70px}
+      .hero-title{font-size:16.7vw;line-height:.82;font-stretch:75%}.hero-title .line-2{text-align:left;white-space:nowrap}.hero-title .line-2 .outline{display:inline}.hero-title .outline{-webkit-text-stroke:1.2px var(--ink)}
+      .portrait-stack{top:55%;width:160px;height:235px}.portrait-back{transform:translate(-25px,-18px) rotate(-5deg)}.portrait-front{transform:translate(20px,20px) rotate(3deg)}
+      .portrait-stack img{transform:scale(2.15)}.spark{width:38px;height:38px}.spark.s2{width:45px;height:45px;bottom:18%}
+      .hero-meta{margin-top:230px}.hero-meta strong{font-size:36px}.hero-meta .right span{max-width:150px}
+      .ticker-track{padding:10px 0}.ticker-track span{font-size:13px}
+      .intro{padding:85px 0 60px}.intro-grid{gap:40px}.intro h2{font-size:68px}.intro-copy p{font-size:23px}
+      .manifesto{min-height:78svh;padding:90px 0}.manifesto-text{text-align:center;font-size:28px}.manifesto-index{display:none}
+      .section-top{display:block}.section-top h2{font-size:56px}.section-top p{text-align:left;margin-top:24px}
+      .journey{padding:80px 0 100px}.chapters{margin-top:35px}.chapter{grid-template-columns:1fr;gap:30px;padding:42px 0 75px}.chapter-index{position:static;display:flex;justify-content:space-between;align-items:center}.chapter-index b{font-size:30px;margin:0}.chapter-content{gap:35px}.chapter-copy h3{font-size:46px}
+      .evidence-grid{grid-template-columns:1fr}.evidence.wide{grid-column:auto;min-height:245px}.evidence{min-height:210px}
+      .vouga{padding:80px 0 75px}.vouga-logo{width:58px}.vouga h2{font-size:19vw;margin:62px 0 38px}.vouga-grid{gap:38px}.vouga-side{border-left:0;border-top:1px solid rgba(243,240,234,.25);padding:25px 0 0}
+      .principles{padding:85px 0}.principle-list{margin-top:40px}.principle{grid-template-columns:50px 1fr;gap:15px;padding:30px 0}.principle h3{font-size:34px}.principle p{font-size:13px}
+      .contact{min-height:60svh;padding-top:80px}.contact h2{font-size:18vw}.contact-bottom{display:block;margin-top:45px}.contact-mail{display:inline-block;margin-top:30px;font-size:21px}
+      .content-section{padding:82px 0}.content-title{font-size:54px;margin-bottom:34px}.testimonials-grid,.thoughts-grid{grid-template-columns:1fr}.testimonial-card{min-height:260px}.thought-card{min-height:355px}.thought-cta{grid-column:auto;min-height:280px}
+      .bottom-blur{height:58px}
+      .big-footer{min-height:620px;padding-top:70px}.footer-grid{grid-template-columns:1fr;min-height:520px}.footer-brand{padding-top:0}.footer-socials{margin-top:45px}.footer-links{grid-template-columns:1fr 1fr;padding-top:10px;gap:25px}.footer-copy{flex-direction:column;gap:8px;align-items:center}.footer-figure{display:none}
+      body.menu-open{overflow:hidden}
+      .nav.hero-nav,.nav.hero-nav.compact{z-index:70;top:0;width:100%;height:76px;padding:0 24px;background:transparent}
+      .hero-nav .nav-inner{width:100%;padding:0;gap:18px;justify-content:space-between}
+      .hero-nav .local-time,.hero-nav-right{display:none}
+      .mobile-brand{display:block;font-size:15px;font-weight:650;letter-spacing:-.035em;text-decoration:none}
+      .mobile-menu-toggle{display:grid;place-items:center;width:34px;height:34px;border:0;background:transparent;color:var(--ink);cursor:pointer}
+      .menu-icon{position:relative;display:block;width:18px;height:18px;transition:transform .45s var(--ease)}
+      .menu-icon::before,.menu-icon::after{content:"";position:absolute;width:7px;height:7px;border-color:currentColor;border-style:solid}
+      .menu-icon::before{left:1px;bottom:1px;border-width:0 0 3px 3px}
+      .menu-icon::after{right:1px;top:1px;border-width:3px 3px 0 0}
+      body.menu-open .menu-icon{transform:rotate(90deg)}
+      .mobile-menu{position:fixed;z-index:60;inset:0;display:flex;padding:94px 28px 28px;background:var(--paper);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-12px);transition:opacity .4s var(--ease),visibility .4s,transform .4s var(--ease)}
+      .mobile-menu.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+      .mobile-menu-inner{width:100%;display:flex;flex-direction:column}
+      .mobile-menu-links{display:flex;flex-direction:column;align-items:flex-start}
+      .mobile-menu-links a{font-size:clamp(48px,14vw,68px);font-weight:650;line-height:1.02;letter-spacing:-.065em;text-decoration:none}
+      .mobile-menu-email{display:inline-block;width:max-content;margin-top:32px;font-size:15px;font-weight:570;text-decoration:none}
+      .mobile-menu-bottom{margin-top:auto}
+      .mobile-menu-meta{display:flex;flex-direction:column;align-items:flex-start;gap:9px;font-size:15px;line-height:1.2}
+      .mobile-menu-meta a{color:inherit;text-decoration:none}
+      .mobile-menu-mark{margin-top:32px;font-size:clamp(36px,11vw,52px);font-weight:650;line-height:1;letter-spacing:-.075em;white-space:nowrap}
+      .minimal-hero{min-height:100svh;padding:96px 24px 28px;display:flex;flex-direction:column;align-items:center;overflow:hidden}
+      .hero-thoughts{display:none}
+      .hero-video{order:1;place-self:auto;align-self:flex-start;width:clamp(150px,46vw,190px);max-width:190px;margin:calc(12px - 1cm) 0 0 clamp(12px,8vw,32px);flex:0 0 auto}
+      .hero-description{order:2;align-self:stretch;width:100%;max-width:330px;margin:52px auto 0;font-size:clamp(20px,6vw,25px);line-height:1.08;text-align:left}
+      .hero-profile{order:3;display:block;align-self:flex-start;width:min(58vw,215px);margin-top:48px}
+      .hero-profile-role{display:flex;font-size:11px}
+      .hero-signature{order:4;align-self:center;justify-self:auto;width:100%;margin-top:auto;padding-top:calc(66px - 1.2cm);text-align:center;font-size:clamp(34px,11.5vw,48px);white-space:nowrap}
+      .thought-row{grid-template-columns:34px 1fr auto;gap:10px;padding:23px 0}
+      .thought-row-title{font-size:27px}
+      .contact.contact-soft{padding:90px 0}
+      .contact-soft-grid{grid-template-columns:1fr;gap:48px;margin-top:40px}
+      .contact.contact-soft h2{font-size:52px}
+      .contact-links a{font-size:20px;overflow-wrap:anywhere}
+      .chapter-brand-logo{max-width:155px;max-height:42px}
+      .chapter-brand-logo.vouga-chapter-logo{width:145px;max-width:145px}
+      .evidence-grid.compact-four{grid-template-columns:repeat(2,1fr)}
+      .evidence-grid.compact-four .evidence{min-height:165px}
+      .evidence.construction{min-height:250px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}.ticker-track,.spark,.vouga::before,.hero-thought,.evidence.construction img,.evidence.construction::before{animation:none}.hero-thought{opacity:0;visibility:hidden;pointer-events:none;transform:none}.hero-thought:first-child{opacity:1;visibility:visible;pointer-events:auto}.reveal{opacity:1;transform:none;filter:none;transition:none}.portrait-stack,.hero-title{transform:none!important}.manifesto-text .word{color:var(--ink);transform:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="bottom-blur" aria-hidden="true"></div>
+
+  <nav class="nav hero-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <div class="local-time">
+        <span>Local time</span>
+        <strong id="local-time">--:--:--</strong>
+      </div>
+      <a class="mobile-brand" href="#top">Miguel Correia</a>
+      <div class="hero-nav-right">
+        <div class="hero-nav-links">
+          <a href="#about">About</a>
+          <a href="#journey">Journey</a>
+          <a href="#thoughts">Thoughts</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="hero-email" href="mailto:miguelscorreia24@gmail.com">miguelscorreia24@gmail.com</a>
+      </div>
+      <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+
+  <aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <nav class="mobile-menu-links" aria-label="Mobile navigation">
+        <a href="#about" data-menu-close>About</a>
+        <a href="#journey" data-menu-close>Journey</a>
+        <a href="#thoughts" data-menu-close>Thoughts</a>
+        <a href="#contact" data-menu-close>Contact</a>
+      </nav>
+      <a class="mobile-menu-email" href="mailto:miguelscorreia24@gmail.com">miguelscorreia24@gmail.com</a>
+      <div class="mobile-menu-bottom">
+        <div class="mobile-menu-meta">
+          <span>Porto, Portugal</span>
+          <span>Founder &amp; System Thinker</span>
+          <a href="https://vouga-agency.netlify.app/#top" target="_blank" rel="noopener noreferrer">Vouga Agency ↗</a>
+        </div>
+        <p class="mobile-menu-mark">〈Miguel—©<span id="mobile-menu-year">2026</span>〉</p>
+      </div>
+    </div>
+  </aside>
+
+  <div class="page">
+    <header class="minimal-hero" id="top">
+      <div class="hero-profile reveal">
+        <div class="profile-card">
+          <div class="profile-card-inner">
+            <figure class="hero-profile-photo"><img src="fotoperfil.png" alt="Portrait of Miguel Correia"></figure>
+            <div class="profile-card-back" aria-hidden="true" inert>
+              <button class="profile-back-close" type="button" aria-label="Show portrait">↩</button>
+              <div><small>Connect with Miguel</small><div class="profile-card-links"><a href="https://www.linkedin.com/in/miguelsilvacorreia/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="mailto:miguelscorreia24@gmail.com">Email ↗</a><a href="https://www.instagram.com/miguel.scorreia?utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div></div>
+            </div>
+          </div>
+          <button class="profile-flip-toggle" type="button" aria-label="Show contact options" aria-expanded="false"></button>
+        </div>
+        <div class="hero-profile-role"><span>Founder &amp;<br>System Thinker</span><span>Porto<br>Portugal</span></div>
+      </div>
+
+      <figure class="hero-video reveal">
+        <video autoplay muted loop playsinline preload="metadata" aria-label="Miguel Correia visual reel">
+          <source src="videosite.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <aside class="hero-thoughts reveal" aria-label="Selected thoughts">
+        <div class="hero-thought-frame">
+          <a class="hero-thought" href="thought-robotics-efficiency.html"><span class="count">THOUGHT / 01</span><div><h3>What Robotics Taught Me About Efficiency and AI</h3></div></a>
+          <a class="hero-thought" href="thought-before-compute.html"><span class="count">THOUGHT / 02</span><div><h3>Before Adding Compute, Add Understanding</h3></div></a>
+          <a class="hero-thought" href="thought-take-problem-apart.html"><span class="count">THOUGHT / 03</span><div><h3>Take the Problem Apart Before You Build the Future</h3></div></a>
+        </div>
+        <div class="hero-thought-meta"><span>Thoughts</span><span>(03)</span></div>
+      </aside>
+
+      <p class="hero-description reveal">I connect people, strategy and systems to turn vision into execution.</p>
+      <p class="hero-signature reveal"><span>©</span>Miguel Correia</p>
+    </header>
+
+    <main>
+      <section class="intro" id="about">
+        <div class="shell intro-grid">
+          <div class="reveal"><span class="micro muted">/ Hello</span><h2>Hey!</h2></div>
+          <div class="intro-copy reveal">
+            <p>I’m Miguel, a systems engineer and builder based in Porto. I work where strategy, product and artificial intelligence meet.</p>
+            <p>I approach problems as systems: relationships, root causes and downstream effects come before tools. Then I build the simplest solution capable of changing the outcome.</p>
+            <a class="pill-link" href="#journey">Explore the journey ↘</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="manifesto" aria-label="Manifesto">
+        <span class="manifesto-index micro muted">/ 00 · way of thinking</span>
+        <div class="shell">
+          <p class="manifesto-text" data-kinetic>Before adding compute, add understanding. No amount of technology can fix a problem you do not understand. The goal is not to use AI. It is to build the smallest system that changes the outcome.</p>
+        </div>
+      </section>
+
+      <section class="journey" id="journey">
+        <div class="shell">
+          <header class="section-top reveal">
+            <h2>The path so far</h2>
+            <p>Six moments. Each one shaped a way of thinking that is still present in the work.</p>
+          </header>
+
+          <div class="chapters">
+            <article class="chapter">
+              <div class="chapter-index"><span class="micro muted">01 ·</span><b>2023</b></div>
+              <div class="chapter-content">
+                <div class="chapter-copy reveal">
+                  <span class="micro muted">The first yes</span>
+                  <h3>Stepping into the unfamiliar.</h3>
+                  <p>At 17, a teacher invited me to join my school’s robotics and programming group. I knew little about either. I said yes anyway. That decision taught me something I still carry: <strong>growth begins beyond what we already know.</strong></p>
+                  <div class="tags"><span>robotics</span><span>programming</span><span>age 17</span></div>
+                </div>
+                <div class="evidence-grid reveal">
+                  <div class="evidence has-image"><img src="robotica.jpeg" alt="Miguel’s first robotics team"><span class="evidence-no">EV.01</span><p class="evidence-label"><b>First team</b><span>Robotics · 2023</span></p></div>
+                  <div class="evidence has-image"><img src="robotica1.jpeg" alt="Work scenes from the school robotics project"><span class="evidence-no">EV.02</span><p class="evidence-label"><b>Work scenes</b><span>Building · testing · iterating</span></p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="chapter">
+              <div class="chapter-index"><span class="micro muted">02 ·</span><b>2023</b></div>
+              <div class="chapter-content">
+                <div class="chapter-copy reveal">
+                  <span class="micro muted">FNR &amp; RoboCup</span>
+                  <h3>Learning to build within constraints.</h3>
+                  <p>Our team won the OnStage category at Portugal’s National Robotics Festival and represented the country at RoboCup 2023, finishing 11th worldwide. Working with a fraction of other teams’ resources taught us to <strong>iterate faster, simplify harder and avoid buying our way around problems.</strong> Competing abroad also taught me to collaborate across cultures and adapt quickly in an unfamiliar environment.</p>
+                  <div class="tags"><span>1st nationally</span><span>RoboCup 2023</span><span>11th worldwide</span><span>multicultural teamwork</span></div>
+                </div>
+                <div class="evidence-grid reveal">
+                  <div class="evidence wide has-image"><img class="fnr-photo" src="FNR.jpeg" alt="National Robotics Festival 2023"><span class="evidence-no">EV.03</span><p class="evidence-label"><b>National Robotics Festival</b><span>OnStage winners · Portugal</span></p></div>
+                  <div class="evidence has-image"><img src="robocup.jpeg" alt="Portuguese team at RoboCup 2023"><span class="evidence-no">EV.04</span><p class="evidence-label"><b>RoboCup 2023</b><span>11th worldwide</span></p></div>
+                  <div class="evidence has-image"><img src="behind.JPG" alt="Behind the scenes at RoboCup 2023"><span class="evidence-no">EV.05</span><p class="evidence-label"><b>Behind the scenes</b><span>Team · robot · adaptation</span></p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="chapter">
+              <div class="chapter-index"><span class="micro muted">03 ·</span><b class="range">2023–2026</b></div>
+              <div class="chapter-content">
+                <div class="chapter-copy reveal">
+                  <span class="micro muted">Systems Engineering</span>
+                  <h3>Learning to see the whole.</h3>
+                  <p>At ISEP, I found the discipline that best reflects how I think: understand relationships, trade-offs and downstream effects before optimising individual parts. Systems Engineering did not define what I wanted to become. <strong>It gave me a lens through which to approach almost anything.</strong></p>
+                  <div class="tags"><span>systems thinking</span><span>engineering</span><span>decisions</span></div>
+                </div>
+                <div class="evidence-grid reveal">
+                  <div class="evidence wide has-image"><img src="systems.jpeg" alt="Systems Engineering project work"><span class="evidence-no">EV.06</span><p class="evidence-label"><b>Systems Engineering</b><span>Projects · teams · systems</span></p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="chapter">
+              <div class="chapter-index"><span class="micro muted">04 ·</span><b>2023</b></div>
+              <div class="chapter-content">
+                <div class="chapter-copy reveal">
+                  <span class="micro muted">Entrepreneurship</span>
+                  <h3>Finding an ecosystem, not just a classroom.</h3>
+                  <p>I began my entrepreneurial journey as soon as I entered university. I quickly realised I had found more than an education: <strong>an ecosystem of opportunities, people and connections.</strong> My first project was ISION, an IoT concept for smart cities built with LoRaWAN. We placed third in Poliempreende Porto, turning an early idea into my first real lesson in entrepreneurship.</p>
+                  <div class="tags"><span>ISION</span><span>IoT</span><span>smart cities</span><span>LoRaWAN</span><span>3rd place</span></div>
+                </div>
+                <div class="evidence-grid reveal">
+                  <div class="evidence wide has-image"><img src="poliempreende.JPG" alt="ISION at Poliempreende Porto"><span class="evidence-no">EV.07</span><p class="evidence-label"><b>Poliempreende Porto</b><span>ISION · 3rd place</span></p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="chapter">
+              <div class="chapter-index"><span class="micro muted">05 ·</span><b>2026</b></div>
+              <div class="chapter-content">
+                <div class="chapter-copy reveal">
+                  <img class="chapter-brand-logo kindtech-chapter-logo" src="kindtechlogo.png" alt="Kind Tech">
+                  <h3>Making strategy operational.</h3>
+                  <p>Kind Tech was my first professional experience. As Head of Growth, I worked across brand, strategy and product. I helped shape the startup’s identity and created <strong>Kind OS</strong>, an internal operating system connecting commercial strategy, planning and sprint execution. It taught me that strategy only matters when it changes how people work.</p>
+                  <div class="tags"><span>brand</span><span>strategy</span><span>product</span><span>Kind OS</span></div>
+                </div>
+                <div class="evidence-grid compact-four reveal">
+                  <div class="evidence has-image"><img src="SIM.png" alt="Kind Tech participating in the SIM Conference"><span class="evidence-no">EV.08</span><p class="evidence-label"><b>SIM Conference</b><span>Participation · ecosystem</span></p></div>
+                  <div class="evidence has-image"><img src="gaia.png" alt="Kind Tech promotion at Gaia City Hall"><span class="evidence-no">EV.09</span><p class="evidence-label"><b>Gaia City Hall</b><span>Product promotion</span></p></div>
+                  <div class="evidence has-image"><img src="secratario.png" alt="Presentation to Secretary of State Bernardo Correia"><span class="evidence-no">EV.10</span><p class="evidence-label"><b>Secretary of State</b><span>Bernardo Correia · Digitalisation</span></p></div>
+                  <div class="evidence has-image"><img src="nvidia.png" alt="Kind Tech in the NVIDIA Inception Program"><span class="evidence-no">EV.11</span><p class="evidence-label"><b>NVIDIA Inception</b><span>Program · ecosystem</span></p></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="chapter">
+              <div class="chapter-index"><span class="micro muted">06 ·</span><b>2026</b></div>
+              <div class="chapter-content">
+                <div class="chapter-copy reveal">
+                  <img class="chapter-brand-logo vouga-chapter-logo" src="vougalogo.png" alt="Vouga Agency">
+                  <h3>Choosing to build.</h3>
+                  <p>Together with two other systems thinkers, I chose to risk the safety of employment and turn this vision into a services startup: <strong>go to the root of the problem, think in systems and use AI to make that combination extraordinarily powerful.</strong> At Vouga Agency, we improve what already exists, build what is missing and train the people who keep everything moving.</p>
+                  <div class="tags"><span>co-founder</span><span>applied AI</span><span>strategy</span><span>execution</span></div>
+                </div>
+                <div class="evidence-grid reveal">
+                  <div class="evidence wide has-image construction"><img src="vougalogo.png" alt="Vouga Agency branding in progress"><span class="construction-status">Section under construction</span><span class="evidence-no">EV.12</span><p class="evidence-label"><b>Vouga Agency</b><span>Branding · work in progress</span></p></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="principles" id="principles">
+        <div class="shell">
+          <header class="section-top reveal">
+            <h2>Principles</h2>
+            <p>Not values for a wall. Filters for deciding and building.</p>
+          </header>
+          <div class="principle-list">
+            <article class="principle reveal"><span class="micro">001</span><h3>See the system.</h3><p>Before solving the symptom, find the origin and understand the downstream impact.</p></article>
+            <article class="principle reveal"><span class="micro">002</span><h3>Do more with less.</h3><p>Constraints do not excuse lesser work. They force better thinking.</p></article>
+            <article class="principle reveal"><span class="micro">003</span><h3>Choose discomfort.</h3><p>If the path does not demand growth, it is probably not the path I am looking for.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials temporarily hidden until real testimonials are available.
+      <section class="content-section" id="testimonials">
+        <div class="shell">
+          <h2 class="content-title reveal">Testimonials</h2>
+          <div class="testimonials-grid">
+            <article class="testimonial-card placeholder reveal">
+              <blockquote>Reserved for someone who can speak to how Miguel thinks, challenges assumptions and turns ambiguity into structure.</blockquote>
+              <div class="person"><span class="person-avatar">01</span><div><b>Future testimonial</b><span>Professor or mentor</span></div></div>
+            </article>
+            <article class="testimonial-card placeholder reveal">
+              <blockquote>Reserved for evidence of execution: shipping under constraints, taking ownership and finishing difficult work.</blockquote>
+              <div class="person"><span class="person-avatar">02</span><div><b>Future testimonial</b><span>Team collaborator</span></div></div>
+            </article>
+            <article class="testimonial-card placeholder reveal">
+              <blockquote>Reserved for a client able to describe the business result — not merely that the project looked impressive.</blockquote>
+              <div class="person"><span class="person-avatar">03</span><div><b>Future testimonial</b><span>Client</span></div></div>
+            </article>
+            <article class="testimonial-card placeholder reveal">
+              <blockquote>Reserved for someone who experienced the combination of systems thinking, product judgment and high agency.</blockquote>
+              <div class="person"><span class="person-avatar">04</span><div><b>Future testimonial</b><span>Founder or partner</span></div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+      -->
+
+      <section class="content-section" id="thoughts">
+        <div class="shell">
+          <h2 class="content-title reveal">Thoughts</h2>
+          <div class="thoughts-list reveal">
+            <a class="thought-row" href="thought-robotics-efficiency.html"><span class="thought-row-index">01</span><span class="thought-row-title">What Robotics Taught Me About Efficiency and AI</span><span class="thought-row-arrow">↗</span></a>
+            <a class="thought-row" href="thought-before-compute.html"><span class="thought-row-index">02</span><span class="thought-row-title">Before Adding Compute, Add Understanding</span><span class="thought-row-arrow">↗</span></a>
+            <a class="thought-row" href="thought-take-problem-apart.html"><span class="thought-row-index">03</span><span class="thought-row-title">Take the Problem Apart Before You Build the Future</span><span class="thought-row-arrow">↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact contact-soft" id="contact">
+        <div class="shell">
+          <span class="micro muted">/ Contact</span>
+          <div class="contact-soft-grid reveal">
+            <div class="contact-soft-copy"><h2>Let’s talk.</h2><p>Projects, ideas and difficult problems are a good place to start.</p></div>
+            <div class="contact-links">
+              <a href="mailto:miguelscorreia24@gmail.com">miguelscorreia24@gmail.com</a>
+              <a href="https://www.linkedin.com/in/miguelsilvacorreia/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="big-footer">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <b>◼ Miguel Correia</b>
+          <p>Systems engineer and builder working across strategy, product and applied artificial intelligence.</p>
+          <div class="footer-socials"><a href="https://www.linkedin.com/in/miguelsilvacorreia/" target="_blank" rel="noopener noreferrer">[LinkedIn]</a><a href="https://www.instagram.com/miguel.scorreia?utm_source=qr" target="_blank" rel="noopener noreferrer">[Instagram]</a><a href="mailto:miguelscorreia24@gmail.com">[Email]</a></div>
+        </div>
+        <figure class="footer-figure" aria-hidden="true"><video autoplay muted loop playsinline preload="metadata"><source src="videosite.mp4" type="video/mp4"></video></figure>
+        <div class="footer-links">
+          <div><h4>Pages</h4><a href="#top">[Home]</a><a href="#about">[About]</a><a href="#journey">[Journey]</a><a href="#thoughts">[Thoughts]</a></div>
+          <div><h4>Connect</h4><a href="#contact">[Contact]</a><a href="https://vouga-agency.netlify.app/#top" target="_blank" rel="noopener noreferrer">[Vouga Agency]</a><a href="mailto:miguelscorreia24@gmail.com">[Email]</a></div>
+        </div>
+      </div>
+      <div class="shell footer-copy"><span>© <span id="footer-year">2026</span> Miguel Correia</span><span>Porto · Portugal · Built with intent</span></div>
+    </footer>
+  </div>
+
+  <script>
+    (()=>{
+      const now=new Date();
+      document.getElementById('footer-year').textContent=now.getFullYear();
+      document.getElementById('mobile-menu-year').textContent=now.getFullYear();
+      const clock=document.getElementById('local-time');
+      const formatter=new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Lisbon',hour:'numeric',minute:'2-digit',second:'2-digit'});
+      const updateClock=()=>clock.textContent=formatter.format(new Date());
+      updateClock();setInterval(updateClock,1000);
+    })();
+
+    (()=>{
+      const button=document.querySelector('.mobile-menu-toggle');
+      const menu=document.getElementById('mobile-menu');
+      const setOpen=open=>{
+        document.body.classList.toggle('menu-open',open);
+        menu.classList.toggle('is-open',open);
+        menu.setAttribute('aria-hidden',String(!open));
+        button.setAttribute('aria-expanded',String(open));
+        button.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
+      };
+      button.addEventListener('click',()=>setOpen(button.getAttribute('aria-expanded')!=='true'));
+      menu.querySelectorAll('[data-menu-close]').forEach(link=>link.addEventListener('click',()=>setOpen(false)));
+      addEventListener('keydown',event=>{if(event.key==='Escape')setOpen(false)});
+      const mobile=matchMedia('(max-width:650px)');
+      const closeOnDesktop=event=>{if(!event.matches)setOpen(false)};
+      if(mobile.addEventListener)mobile.addEventListener('change',closeOnDesktop);else mobile.addListener(closeOnDesktop);
+    })();
+
+    (()=>{
+      document.querySelectorAll('.profile-card').forEach(card=>{
+        const toggle=card.querySelector('.profile-flip-toggle');
+        const back=card.querySelector('.profile-card-back');
+        const close=card.querySelector('.profile-back-close');
+        const setFlipped=flipped=>{
+          card.classList.toggle('is-flipped',flipped);
+          toggle.setAttribute('aria-expanded',String(flipped));
+          toggle.setAttribute('aria-label',flipped?'Hide contact options':'Show contact options');
+          back.setAttribute('aria-hidden',String(!flipped));
+          back.toggleAttribute('inert',!flipped);
+          if(flipped)back.querySelector('a').focus();else toggle.focus();
+        };
+        toggle.addEventListener('click',()=>setFlipped(true));
+        close.addEventListener('click',()=>setFlipped(false));
+      });
+    })();
+
+    (()=>{
+      const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const nav=document.querySelector('.nav');
+      const root=document.documentElement;
+      let ticking=false;
+      function update(){
+        const y=scrollY,max=document.documentElement.scrollHeight-innerHeight;
+        root.style.setProperty('--progress',max>0?y/max:0);
+        root.style.setProperty('--hero-shift',Math.min(y*.22,150));
+        nav.classList.toggle('compact',y>80);
+        ticking=false;
+      }
+      addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(update);ticking=true}},{passive:true});
+      update();
+    })();
+
+    (()=>{
+      const items=document.querySelectorAll('.reveal');
+      const io=new IntersectionObserver(entries=>entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target)}
+      }),{threshold:.1,rootMargin:'0px 0px -8%'});
+      items.forEach(item=>io.observe(item));
+    })();
+
+    (()=>{
+      const target=document.querySelector('[data-kinetic]');
+      const words=target.textContent.trim().split(/\s+/);
+      target.innerHTML=words.map((word,i)=>`<span class="word" style="--i:${i}">${word}</span>`).join(' ');
+      const spans=[...target.querySelectorAll('.word')];
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches){spans.forEach(x=>x.classList.add('lit'));return}
+      function lightWords(){
+        const r=target.getBoundingClientRect();
+        const progress=Math.max(0,Math.min(1,(innerHeight*.78-r.top)/(innerHeight*.65)));
+        const count=Math.ceil(progress*spans.length);
+        spans.forEach((span,i)=>span.classList.toggle('lit',i<count));
+      }
+      addEventListener('scroll',lightWords,{passive:true});lightWords();
+    })();
+
+    (()=>{
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      document.querySelectorAll('.evidence').forEach(card=>{
+        card.addEventListener('pointermove',e=>{
+          const r=card.getBoundingClientRect();
+          const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+          card.style.transform=`perspective(700px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-7px)`;
+        });
+        card.addEventListener('pointerleave',()=>card.style.transform='');
+      });
+    })();
+  </script>
+</body>
+</html>
